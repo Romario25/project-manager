@@ -26,7 +26,7 @@ class Handler
 
     private $confirmTokenizer;
 
-    private $confirmTokenSender;
+    private $sender;
 
     public function __construct(
         UserRepository $userRepository,
@@ -40,7 +40,7 @@ class Handler
         $this->passwordHasher = $passwordHasher;
         $this->flusher = $flusher;
         $this->confirmTokenizer = $confirmTokenizer;
-        $this->confirmTokenSender = $confirmTokenSender;
+        $this->sender = $confirmTokenSender;
     }
 
     public function handle(Command $command): void
@@ -54,19 +54,18 @@ class Handler
             throw new \DomainException('User already exists');
         }
 
-        $user = new User(
+        $user = User::signUpByEmail(
             Id::next(),
             new \DateTimeImmutable(),
-        );
-
-        $user->signUpByEmail(
             $email,
             $this->passwordHasher->hash($command->password),
             $token
         );
 
         $this->userRepository->add($user);
-        $this->confirmTokenSender($email, $token);
+
+        $this->sender->send($email, $token);
+
         $this->flusher->flush();
     }
 

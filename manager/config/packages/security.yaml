@@ -16,15 +16,15 @@ security:
             security: false
         main:
             anonymous: true
-            guard:
-                authenticators:
-                    - App\Security\LoginFormAuthentificatorAuthenticator
-            remember_me:
-                secret: '%kernel.secret%'
-                lifetime: 604800
-                path: /
-            logout:
-                path: app_logout
+#            guard:
+#                authenticators:
+#                    - App\Security\LoginFormAuthentificatorAuthenticator
+#            remember_me:
+#                secret: '%kernel.secret%'
+#                lifetime: 604800
+#                path: /
+#            logout:
+#                path: app_logout
 
 
             # activate different ways to authenticate
@@ -39,6 +39,6 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
-      - {path: '^/login', roles: IS_AUTHENTICATED_ANONYMOUSLY}
-      - {path: '^/register', roles: IS_AUTHENTICATED_ANONYMOUSLY}
-      - {path: '^/', roles: ROLE_USER}
+#      - {path: '^/login', roles: IS_AUTHENTICATED_ANONYMOUSLY}
+#      - {path: '^/register', roles: IS_AUTHENTICATED_ANONYMOUSLY}
+#      - {path: '^/', roles: ROLE_USER}
